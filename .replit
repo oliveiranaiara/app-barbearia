@@ -2,6 +2,7 @@ compile = "javac -classpath .:target/dependency/* -d . $(find . -type f -name '*
 run = "java -classpath .:target/dependency/* Main"
 entrypoint = "src/main/java/Main.java"
 hidden = ["**/*.class"]
+modules = ["postgresql-16"]
 
 [packager]
 language = "java"
@@ -62,3 +63,15 @@ mainClass = "Main"
 build = ["javac", "-classpath", ".:target/dependency/*", "-d", ".", "$(find . -type f -name '*.java')"]
 run = ["java", "-classpath", ".:target/dependency/*", "Main"]
 deploymentTarget = "cloudrun"
+
+[workflows]
+runButton = "Run Spring Boot"
+
+[[workflows.workflow]]
+name = "Run Spring Boot"
+author = 6566202
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mvn spring-boot:run"
