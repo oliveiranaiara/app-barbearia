@@ -50,15 +50,23 @@
             
             <div class="col-md-6">
                 <h2>Agendamentos</h2>
-                <div ng-if="appointments.length === 0">
-                    <p>Nenhum agendamento encontrado.</p>
+                <div ng-if="loading" class="text-center">
+                    <p>Carregando agendamentos...</p>
                 </div>
-                <div class="list-group">
-                    <div class="list-group-item" ng-repeat="appointment in appointments">
-                        <h5>{{appointment.cliente}}</h5>
-                        <p>Serviço: {{appointment.servico}}</p>
-                        <p>Barbeiro: {{appointment.barbeiro}}</p>
-                        <p>Data/Hora: {{appointment.dataHora | date:'dd/MM/yyyy HH:mm'}}</p>
+                <div ng-if="error" class="alert alert-danger">
+                    {{error}}
+                </div>
+                <div ng-if="!loading && !error">
+                    <div ng-if="appointments.length === 0">
+                        <p>Nenhum agendamento encontrado.</p>
+                    </div>
+                    <div class="list-group">
+                        <div class="list-group-item" ng-repeat="appointment in appointments">
+                            <h5>{{appointment.cliente}}</h5>
+                            <p>Serviço: {{appointment.servico}}</p>
+                            <p>Barbeiro: {{appointment.barbeiro}}</p>
+                            <p>Data/Hora: {{formatDate(appointment.dataHora)}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
